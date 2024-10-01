@@ -1,5 +1,5 @@
-import ButtonLink from "@/components/button/link-button";
-import AddPropertyForm from "@/components/form/property-form";
+import ButtonLink from "@/components/common/button/link-button";
+import AddPropertyForm from "@/components/common/form/property-form";
 import { Heading } from "@/components/ui/heading";
 
 export default function createPropertyAccount() {
@@ -7,8 +7,8 @@ export default function createPropertyAccount() {
     <div className="space-y-2">
       <div className="flex item-start">
         <Heading
-          title="Add new Property"
-          description="Create Property function for Admin"
+          title="Thêm mới Property"
+          description="Chức năng tạo Property cho Admin"
         />
       </div>
       <div className="flex justify-center">

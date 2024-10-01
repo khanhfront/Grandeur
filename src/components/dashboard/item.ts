@@ -1,51 +1,30 @@
 export const navItems: NavItem[] = [
+  // Dashboard Overview
   {
     title: "Dashboard",
     href: "/dashboard",
     icon: "chart",
     label: "Dashboard",
   },
+
+  // Users Management
   {
-    title: "Amenities list",
-    href: "/dashboard/amenities",
-    icon: "combine", // Biểu tượng kiểm tra tiện ích đã có
-    label: "Amenities",
+    title: "All Accounts",
+    href: "/dashboard/user-accounts",
+    icon: "userCheck",
+    label: "All Accounts",
   },
   {
-    title: "Bank Accounts",
-    href: "/dashboard/bank-accounts",
-    icon: "creditCard", // Biểu tượng thẻ tín dụng
-    label: "Bank Accounts",
-  },
-  {
-    title: "Bookings",
-    href: "/dashboard/bookings",
-    icon: "calendar", // Biểu tượng lịch
-    label: "Bookings",
-  },
-  {
-    title: "Cancellation Policies",
-    href: "/dashboard/cancellation-policies",
-    icon: "xCircle", // Biểu tượng dấu "X"
-    label: "Cancellation Policies",
-  },
-  {
-    title: "Cancellation Policy Types",
-    href: "/dashboard/cancellation-policy-types",
-    icon: "fileText", // Biểu tượng văn bản
-    label: "Cancellation Policy Types",
+    title: "Add New Account",
+    href: "/dashboard/user-accounts/new",
+    icon: "userCheck",
+    label: "Add New Account",
   },
   {
     title: "Customers",
     href: "/dashboard/customers",
-    icon: "bookUser", // Biểu tượng người dùng
+    icon: "bookUser",
     label: "Customers",
-  },
-  {
-    title: "Customer Reviews",
-    href: "/dashboard/customer-reviews",
-    icon: "star", // Biểu tượng sao
-    label: "Customer Reviews",
   },
   {
     title: "Hosts",
@@ -53,167 +32,158 @@ export const navItems: NavItem[] = [
     icon: "home", // Biểu tượng ngôi nhà
     label: "Hosts",
   },
+
+  // Properties
+  {
+    title: "All Properties",
+    href: "/dashboard/properties",
+    icon: "building", // Biểu tượng tòa nhà
+    label: "Properties",
+  },
+  {
+    title: "Add New Property",
+    href: "/dashboard/properties/new",
+    icon: "building",
+    label: "Add New Properties",
+  },
+  {
+    title: "All Amenities",
+    href: "/dashboard/amenities",
+    icon: "image",
+    label: "All Amenities",
+  },
+  {
+    title: "Add New Amenity",
+    href: "/dashboard/amenities/new",
+    icon: "image",
+    label: "Add Amenitiy",
+  },
   {
     title: "House Rules",
     href: "/dashboard/house-rules",
     icon: "clipboardList", // Biểu tượng danh sách
     label: "House Rules",
   },
+
+  // Booking Management
   {
-    title: "Messages",
-    href: "/dashboard/messages",
-    icon: "messageCircle", // Biểu tượng tin nhắn
-    label: "Messages",
+    title: "All Bookings",
+    href: "/dashboard/bookings",
+    icon: "calendar", // Biểu tượng lịch
+    label: "Bookings",
   },
+  {
+    title: "Canceled Bookings",
+    href: "/dashboard/bookings/canceled",
+    icon: "calendar", // Biểu tượng lịch
+    label: "Canceled Bookings",
+  },
+
+  // Financial Management
+
   {
     title: "Payments",
     href: "/dashboard/payments",
     icon: "dollarSign", // Biểu tượng đô la
     label: "Payments",
   },
+
+  // Promo Code Management
   {
     title: "Promo Codes",
     href: "/dashboard/promo-codes",
     icon: "tag", // Biểu tượng nhãn
     label: "Promo Codes",
   },
+
+  // Messages Management
   {
-    title: "Properties",
-    href: "/dashboard/properties",
-    icon: "building", // Biểu tượng tòa nhà
-    label: "Properties",
+    title: "Messages",
+    href: "/dashboard/messages",
+    icon: "messageCircle", // Biểu tượng tin nhắn
+    label: "Messages",
   },
+
+  // Analytics & Reports
   {
-    title: "Property Photos",
-    href: "/dashboard/property-photos",
-    icon: "image", // Biểu tượng hình ảnh
-    label: "Property Photos",
+    title: "Analytics",
+    href: "/dashboard/Analytics",
+    icon: "chart",
+    label: "Analytics",
   },
+
+  // Helps
   {
-    title: "Property Reviews",
-    href: "/dashboard/property-reviews",
-    icon: "starP", // Biểu tượng nửa sao
-    label: "Property Reviews",
-  },
-  {
-    title: "Property Rules",
-    href: "/dashboard/property-rules",
-    icon: "clipboardList", // Biểu tượng danh sách
-    label: "Property Rules",
-  },
-  {
-    title: "Property Structures",
-    href: "/dashboard/property-structures",
-    icon: "layers", // Biểu tượng lớp
-    label: "Property Structures",
-  },
-  {
-    title: "Provinces",
-    href: "/dashboard/provinces",
-    icon: "map", // Biểu tượng bản đồ
-    label: "Provinces",
-  },
-  {
-    title: "Rule Types",
-    href: "/dashboard/rule-types",
-    icon: "sliders", // Biểu tượng thanh trượt
-    label: "Rule Types",
-  },
-  {
-    title: "Types of Property",
-    href: "/dashboard/types-of-property",
-    icon: "grid", // Biểu tượng lưới
-    label: "Types of Property",
-  },
-  {
-    title: "User Accounts",
-    href: "/dashboard/user-accounts",
-    icon: "userCheck", // Biểu tượng người dùng đã xác thực
-    label: "User Accounts",
+    title: "Helps",
+    href: "/dashboard/Helps",
+    icon: "help",
+    label: "Helps",
   },
 ];
 
 export const navSections: NavSection[] = [
   {
     title: "Dashboard",
-    icon: "chart", // Biểu tượng kiểm tra tiện ích đã có
+    icon: "chart",
     items: navItems.filter((navItem) => ["Dashboard"].includes(navItem.title)),
   },
   {
-    title: "Users",
-    icon: "user", // Biểu tượng người dùng
+    title: "Accounts",
+    icon: "user",
     items: navItems.filter((navItem) =>
-      ["Customers", "Hosts", "User Accounts", "User Tokens"].includes(
+      ["All Accounts", "Add New Account", "Customers", "Hosts"].includes(
         navItem.title
       )
     ),
   },
   {
     title: "Properties",
-    icon: "building", // Biểu tượng tòa nhà
+    icon: "building",
     items: navItems.filter((navItem) =>
-      [
-        "Properties",
-        "Types of Property",
-        "Property Structures",
-        "Property Photos",
-        "Property Availability",
-        "Property Reviews",
-        "Property Rules",
-      ].includes(navItem.title)
+      ["All Properties", "Add New Property", "House Rules"].includes(
+        navItem.title
+      )
     ),
   },
   {
     title: "Amenities",
-    icon: "combine", // Biểu tượng kiểm tra tiện ích đã có
+    icon: "image",
     items: navItems.filter((navItem) =>
-      ["Amenities list"].includes(navItem.title)
-    ),
-  },
-
-  {
-    title: "Financial",
-    icon: "creditCard", // Biểu tượng thẻ tín dụng
-    items: navItems.filter((navItem) =>
-      ["Bank Accounts", "Payments", "Promo Codes"].includes(navItem.title)
+      ["All Amenities", "Add New Amenity"].includes(navItem.title)
     ),
   },
   {
-    title: "Location",
-    icon: "map", // Biểu tượng bản đồ
+    title: "Booking",
+    icon: "calendar",
     items: navItems.filter((navItem) =>
-      ["Provinces", "Districts"].includes(navItem.title)
+      ["All Bookings", "Canceled Bookings"].includes(navItem.title)
     ),
   },
   {
-    title: "Reviews",
-    icon: "starSection", // Biểu tượng nửa sao
-    items: navItems.filter((navItem) =>
-      ["Customer Reviews", "Property Reviews"].includes(navItem.title)
-    ),
+    title: "Payments",
+    icon: "dollarSign",
+    items: navItems.filter((navItem) => ["Payments"].includes(navItem.title)),
   },
   {
-    title: "Policies",
-    icon: "scale", // Biểu tượng dấu "X"
+    title: "Promo Code",
+    icon: "tag",
     items: navItems.filter((navItem) =>
-      [
-        "Cancellation Policies",
-        "Cancellation Policy Types",
-        "Rule Types",
-        "House Rules",
-      ].includes(navItem.title)
+      ["Promo Codes"].includes(navItem.title)
     ),
   },
   {
     title: "Messages",
-    icon: "messageCircle", // Biểu tượng tin nhắn
-    items: navItems.filter((navItem) => navItem.title === "Messages"),
+    icon: "messageCircle",
+    items: navItems.filter((navItem) => ["Messages"].includes(navItem.title)),
   },
   {
-    title: "OAuth",
-    icon: "key", // Biểu tượng khóa
-    items: navItems.filter((navItem) =>
-      ["OAuth Tokens", "User Tokens"].includes(navItem.title)
-    ),
+    title: "Analytics & Reports",
+    icon: "chart",
+    items: navItems.filter((navItem) => ["Analytics"].includes(navItem.title)),
+  },
+  {
+    title: "Helps",
+    icon: "help",
+    items: navItems.filter((navItem) => ["Helps"].includes(navItem.title)),
   },
 ];

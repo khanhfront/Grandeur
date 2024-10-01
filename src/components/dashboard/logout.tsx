@@ -18,8 +18,7 @@ export default function LogoutButton({ isMinimized }: logoutProp) {
     if (success) {
       toast.success(message);
 
-      // Chuyển hướng về trang chủ
-      router.push("/");
+      router.push("/login");
     } else {
       toast.error(message);
     }
@@ -28,7 +27,7 @@ export default function LogoutButton({ isMinimized }: logoutProp) {
   return (
     <button
       onClick={onLogoutClick}
-      className="bg-transparent flex flex-1 items-center gap-2 py-2 pl-1"
+      className="bg-background flex flex-1 items-center gap-2 py-1 pl-1 pt-2 sticky bottom-0 hover:bg-accent rounded-lg"
     >
       <LogOut className="size-4 flex-none" />
       <span

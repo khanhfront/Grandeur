@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { a } from "@/utils/antiSSL";
-import ButtonLink from "@/components/button/link-button";
+import ButtonLink from "@/components/common/button/link-button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 // Định nghĩa kiểu dữ liệu dựa trên API
@@ -42,9 +42,90 @@ export type UserDto = {
   userAbout: string;
   districtName: string;
   provinceName: string;
+  districtId: string;
 };
 
-// Định nghĩa cột cho bảng
+const UserActionsCell = ({ user }: { user: UserDto }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    try {
+      const response = await a.delete(
+        `http://localhost:5280/api/UserAccounts/${user.userId}`
+      );
+
+      if (response.status === 204) {
+        // Xử lý trường hợp xóa thành công với mã 204
+        toast.success("User deleted successfully");
+        setIsDialogOpen(false);
+        router.refresh();
+      } else {
+        toast.error(`Failed to delete user: ${response.statusText}`);
+      }
+    } catch (error) {
+      toast.error("Failed to delete user");
+    }
+  };
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() => {
+              navigator.clipboard.writeText(user.userId.toString());
+              toast.success("Copy vào clipboard thành công");
+            }}
+          >
+            Copy User ID
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => {
+              router.push(`/dashboard/user-accounts/${user.userId}`);
+            }}
+          >
+            View User
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>
+              Delete the user with Id {user.userId.toString()}
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setIsDialogOpen(false)}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+};
+
 export const columns: ColumnDef<UserDto>[] = [
   {
     id: "select",
@@ -120,86 +201,6 @@ export const columns: ColumnDef<UserDto>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const user = row.original;
-      const [isDialogOpen, setIsDialogOpen] = useState(false);
-      const router = useRouter();
-
-      const handleDelete = async () => {
-        try {
-          const response = await a.delete(
-            `https://localhost:7209/api/UserAccounts/${user.userId}`
-          );
-
-          if (response.status === 204) {
-            // Xử lý trường hợp xóa thành công với mã 204
-            toast.success("User deleted successfully");
-            setIsDialogOpen(false);
-            router.refresh();
-          } else {
-            toast.error(`Failed to delete user: ${response.statusText}`);
-          }
-        } catch (error) {
-          toast.error("Failed to delete user");
-        }
-      };
-
-      return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => {
-                  navigator.clipboard.writeText(user.userId.toString());
-                  toast.success("Copy vào clipboard thành công");
-                }}
-              >
-                Copy User ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => {
-                  router.push(`/dashboard/user-accounts/${user.userId}`);
-                }}
-              >
-                View User
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setIsDialogOpen(true)}>
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  Delete the user with Id {user.userId.toString()}
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel onClick={() => setIsDialogOpen(false)}>
-                  Cancel
-                </AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </>
-      );
-    },
+    cell: ({ row }) => <UserActionsCell user={row.original} />,
   },
 ];

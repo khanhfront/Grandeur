@@ -23,7 +23,7 @@ export function NavSection({ section, path, isMinimized }: NavSectionProps) {
     <div>
       {hasMultipleItems ? (
         <Accordion type="single" collapsible>
-          <AccordionItem value={section.title}>
+          <AccordionItem value={section.title} className="border-none">
             <AccordionTrigger>
               <div className="flex items-center gap-2 pl-1">
                 <IconComponent className="size-5" />
@@ -50,10 +50,12 @@ export function NavSection({ section, path, isMinimized }: NavSectionProps) {
         </Accordion>
       ) : (
         section.items.map((item, index) => (
-          <div key={index}>
-            <NavSectionItem item={item} path={path} isMinimized={isMinimized} />
-            <Separator />
-          </div>
+          <NavSectionItem
+            key={index}
+            item={item}
+            path={path}
+            isMinimized={isMinimized}
+          />
         ))
       )}
     </div>

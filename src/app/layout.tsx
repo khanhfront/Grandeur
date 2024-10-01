@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/favicon.ico", // Đường dẫn favicon
-    shortcut: "/favicon-16x16.png", // Shortcut icon cho các nền tảng khác
-    apple: "/apple-touch-icon.png", // Icon cho thiết bị Apple
+    shortcut: "/favicon.ico", // Shortcut icon cho các nền tảng khác
+    apple: "/favicon.ico", // Icon cho thiết bị Apple
   },
 };
 
@@ -52,10 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body
-        className={`${inter.className} overflow-hidden `}
-        suppressHydrationWarning={true}
-      >
+      <body className={`${inter.className} `} suppressHydrationWarning={true}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -63,7 +60,14 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <Toaster expand={true} />
+          <Toaster
+            expand={true}
+            position="top-right"
+            toastOptions={{
+              className: "border-foreground",
+              duration: 1500,
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

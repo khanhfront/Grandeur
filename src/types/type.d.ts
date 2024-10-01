@@ -59,6 +59,7 @@ type UserAccount = {
   userPassword: string;
   districtName: string;
   provinceName: string;
+  districtId: string;
 };
 
 type Amenity = {
@@ -66,4 +67,39 @@ type Amenity = {
   amenityName: string;
   amenityDescription: string;
   amenityTypeName: string;
+};
+
+type Property = {
+  propertyId: number;
+  propertyName: string;
+  hostId: number;
+  typeOfPropertyId: number;
+  districtId: number;
+  propertyAddress: string;
+  pricePerNight: number;
+  propertyStructureId: number;
+  livingRoomCount: number;
+  bedroomCount: number;
+  bedCount: number;
+  bathroomCount: number;
+  kitchenCount: number;
+  minimumStay: number;
+  guestCount: number;
+};
+
+type PropertyCardType = {
+  propertyId: number;
+  propertyName: string;
+  hostName: string;
+  provinceName: string;
+  districtName: string;
+  averagePropertyRating: number;
+  numberPropertyRating: number;
+  address: string;
+  pricePerNight: number;
+  mainPhotoUrl: string;
+  isSponsored?: boolean;
+  bedCount: number;
+  bathroomCount: number;
+  guestCount: number;
 };

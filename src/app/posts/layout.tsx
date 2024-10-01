@@ -1,4 +1,5 @@
-import DynamicBreadcrumb from "@/components/layout/breadcrumb/dynamic-breadcrumb";
+import { MobileModeToggle } from "@/components/common/button/mobile-mode-toggle";
+import DynamicBreadcrumbNoID from "@/components/layout/breadcrumb/breadcrumb-noid";
 import Header from "@/components/layout/header";
 import PageContainer from "@/components/layout/page-container";
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -7,8 +8,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Header />
 
       <PageContainer isMain={true}>
-        <DynamicBreadcrumb />
+        <DynamicBreadcrumbNoID />
         {children}
+        <MobileModeToggle />
       </PageContainer>
     </section>
   );

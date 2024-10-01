@@ -1,5 +1,8 @@
-const Message = () => {
-  return <div>Message</div>;
-};
+"use client";
+import React from "react";
+import ImageUploadComponent from "./iuc";
+import NumberInput from "./number-input";
 
-export default Message;
+export default function page() {
+  return <NumberInput />;
+}

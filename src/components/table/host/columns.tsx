@@ -26,6 +26,36 @@ export type HostDto = {
   propertyCount: number;
 };
 
+const HostActionsCell = ({ host }: { host: HostDto }) => {
+  const router = useRouter();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={() => navigator.clipboard.writeText(host.hostId.toString())}
+        >
+          Copy host ID
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            router.push(`dashboard/user-accounts${host.hostId}`);
+          }}
+        >
+          View host
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 // Định nghĩa các cột trong bảng
 export const columns: ColumnDef<HostDto>[] = [
   {
@@ -76,37 +106,6 @@ export const columns: ColumnDef<HostDto>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const host = row.original;
-      const router = useRouter();
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(host.hostId.toString())
-              }
-            >
-              Copy host ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                router.push(`dashboard/user-accounts${host.hostId}`);
-              }}
-            >
-              View host
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <HostActionsCell host={row.original} />,
   },
 ];

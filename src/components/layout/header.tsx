@@ -1,4 +1,4 @@
-import { ModeToggle } from "@/components/button/mode-toggle";
+import { ModeToggle } from "@/components/common/button/mode-toggle";
 import { AccountDropdownMenu } from "@/components/layout/accountNav";
 import SearchComponent from "@/components/layout/main-search-component";
 
@@ -15,16 +15,16 @@ const Header = () => {
       <div
         id="userHeader"
         className="amzcard
-      w-full bg-background text-hdbg 
-      p-1 sm:px-4 md:px-6 lg:px-10 
-      flex items-center justify-between 
-      z-100 rounded-full"
+        w-full bg-background text-hdbg 
+        p-1 sm:px-1 md:px-6 lg:px-10 
+        flex items-center justify-between sm:justify-center md:justify-between
+        z-100 rounded-full"
       >
         <div className=" hidden md:block text-lg sm:text-xl font-bold">
           Logo
         </div>
         <SearchComponent />
-        <div className="flex items-center justify-between space-x-2 sm:space-x-4">
+        <div className="hidden md:flex items-center justify-between space-x-2 sm:space-x-4">
           <ModeToggle />
           <AccountDropdownMenu />
         </div>

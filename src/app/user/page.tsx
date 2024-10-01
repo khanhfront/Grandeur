@@ -1,4 +1,4 @@
-import LogoutButton from "@/components/button/logout-button";
+import LogoutButton from "@/components/common/button/logout-button";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

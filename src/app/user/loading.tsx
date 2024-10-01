@@ -1,7 +1,7 @@
-export default function Loading() {
-  return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-175px)]">
-      <p className="text-lg font-semibold">Loading...</p>
-    </div>
-  );
-}
+import Loader from "@/components/common/loader";
+
+const Loading = () => {
+  return <Loader />;
+};
+
+export default Loading;

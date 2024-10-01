@@ -14,8 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type CustomerDto = {
   customerId: number;
   averageCustomerRating: number;
@@ -24,6 +22,38 @@ export type CustomerDto = {
   emailAddress: string;
   phoneNumber: string;
   avatarImageUrl: string; // Thêm thuộc tính này
+};
+
+const CustomerActionsCell = ({ customer }: { customer: CustomerDto }) => {
+  const router = useRouter();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={() =>
+            navigator.clipboard.writeText(customer.customerId.toString())
+          }
+        >
+          Copy customer ID
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            router.push(`/dashboard/user-accounts/${customer.customerId}`);
+          }}
+        >
+          View customer
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 };
 
 export const columns: ColumnDef<CustomerDto>[] = [
@@ -75,37 +105,6 @@ export const columns: ColumnDef<CustomerDto>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const customer = row.original;
-      const router = useRouter();
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(customer.customerId.toString())
-              }
-            >
-              Copy customer ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                router.push(`/dashboard/user-accounts/${customer.customerId}`);
-              }}
-            >
-              View customer
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <CustomerActionsCell customer={row.original} />,
   },
 ];

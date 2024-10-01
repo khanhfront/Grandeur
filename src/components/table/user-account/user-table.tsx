@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/ui/data-table";
 import { columns, UserDto } from "./columns";
 import { Heading } from "@/components/ui/heading";
-import ButtonLink from "@/components/button/link-button";
+import ButtonLink from "@/components/common/button/link-button";
 
 export const UserTable = ({ data }: { data: UserDto[] }) => {
   async function handleDelete(selectedRows: any[]): Promise<string[]> {
@@ -14,7 +14,7 @@ export const UserTable = ({ data }: { data: UserDto[] }) => {
     for (const user of selectedRows) {
       try {
         const response = await fetch(
-          `https://localhost:7209/api/UserAccounts/${user.userId}`,
+          `http://localhost:5280/api/UserAccounts/${user.userId}`,
           {
             method: "DELETE",
           }

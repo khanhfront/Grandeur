@@ -25,6 +25,7 @@ import {
   Scale,
   BookUser,
   ChartNoAxesCombined,
+  CircleHelp,
 } from "lucide-react";
 
 export const Icons = {
@@ -54,4 +55,5 @@ export const Icons = {
   grid: Grid, // Biểu tượng lưới
   userCheck: UserCheck, // Biểu tượng người dùng đã xác thực
   scale: Scale,
+  help: CircleHelp,
 };

@@ -14,7 +14,7 @@ import { Menu } from "lucide-react";
 export default function MobileSidebarDashboard() {
   return (
     <Sheet>
-      <SheetTrigger className="md:hidden">
+      <SheetTrigger className="md:hidden" aria-label="Menu">
         <Menu />
       </SheetTrigger>
       <SheetContent side={"left"}>

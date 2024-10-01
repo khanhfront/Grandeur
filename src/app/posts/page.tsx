@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { slugify } from "@/utils/slugnify";
 
 export const metadata: Metadata = {
   title: "Post",
-  description: "See our latest posts.",
+  description:
+    "See our latest posts about trips, travels, tips and tricks to find a stunning property.",
 };
 
 export default async function PostsPage() {
@@ -16,7 +18,10 @@ export default async function PostsPage() {
       <ul>
         {posts.map((post: { id: number; title: string }) => (
           <li key={post.id}>
-            <Link className="text-hdbg" href={`/posts/${post.id}`}>
+            <Link
+              className="text-hdbg"
+              href={`/posts/${slugify(post.title)}-${post.id}`}
+            >
               {"->"}
               {post.title}
             </Link>

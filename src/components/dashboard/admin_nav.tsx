@@ -16,14 +16,19 @@ export function AdminNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src="/avatars/01.png" alt="@Grandeur" />
+        <Button
+          size="icon"
+          aria-label="admin account menu"
+          variant="outline"
+          className="h-10 w-10 rounded-full border-2 border-border bg-background text-foreground hover:bg-hdbg"
+        >
+          <Avatar className="h-9 w-9">
+            <AvatarImage src="/avatar.jpg" alt="@Grandeur" />
             <AvatarFallback>AD</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-40" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">Grandeur</p>
@@ -50,7 +55,7 @@ export function AdminNav() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogoutButton isMinimized={true} />
+          <LogoutButton isMinimized={false} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

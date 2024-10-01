@@ -1,4 +1,4 @@
-import LoginForm from "@/components/form/login-form";
+import LoginForm from "@/components/common/form/login-form";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -18,7 +18,7 @@ export default function Page() {
           Log in to access your account and explore new experiences.
         </p>
         <p className="mt-6 text-sm">
-          Don't have an account?{" "}
+          {"Don't have an account? "}
           <Link href="/register">
             <Button variant="link" className="text-primary">
               Sign up

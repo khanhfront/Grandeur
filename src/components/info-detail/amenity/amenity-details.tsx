@@ -105,7 +105,7 @@ export default function AmenityCard({ amenity }: AmenityCardProps) {
   const handleDelete = async () => {
     try {
       const response = await a.delete(
-        `https://localhost:7209/api/amenities/${amenity.amenityId}`
+        `http://localhost:5280/api/amenities/${amenity.amenityId}`
       );
 
       if (response.status === 204) {

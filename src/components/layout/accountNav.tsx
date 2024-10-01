@@ -1,4 +1,4 @@
-import { Button } from "../button/custom-header-button";
+import { Button } from "../common/button/custom-header-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link"; // Import Next.js Link
 import { AlignJustify } from "lucide-react";
@@ -20,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { decodeToken, isTokenExpired } from "@/utils/authService";
-import { LogoutLink } from "../link/logout-link";
+import { LogoutLink } from "../common/link/logout-link";
 
 const authRoutes: Route[] = [
   { name: "Đăng ký", path: "/register" },
@@ -34,6 +34,8 @@ const protectedRoutes: Route[] = [
   { name: "Cài đặt tài khoản", path: "/account-settings" },
   { name: "Danh sách yêu thích", path: "/favorites" },
 ];
+
+export const dynamic = "force-dynamic";
 
 export async function AccountDropdownMenu() {
   let routeNav: Route[];
@@ -66,11 +68,12 @@ export async function AccountDropdownMenu() {
       <DropdownMenuTrigger asChild>
         <Button
           variant={"outline"}
+          aria-label="user account"
           className="hidden rounded-full p-0.5 sm:py-1 sm:px-3 border border-border hover:border-background md:flex items-center"
         >
           <AlignJustify className="h-4 w-4 md:h-5 md:w-5" />
           <Avatar className="ml-2 w-6 h-6 sm:w-9 sm:h-9">
-            <AvatarImage src={imgUrl} />
+            <AvatarImage src={imgUrl} alt="user avatar" />
             <AvatarFallback className="text-blue-500">
               {user?.userLastName[0] || "U"}
             </AvatarFallback>

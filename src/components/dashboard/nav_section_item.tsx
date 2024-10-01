@@ -30,7 +30,7 @@ export function NavSectionItem({
             href={item.disabled ? "/" : item.href}
             className={cn(
               "flex items-center gap-2 overflow-hidden rounded-md py-2 pl-1 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
-              (path.startsWith(item.href) && item.href !== "/dashboard") ||
+              (path === item.href && item.href !== "/dashboard") ||
                 (item.href === "/dashboard" && path === item.href)
                 ? "bg-accent"
                 : "transparent",

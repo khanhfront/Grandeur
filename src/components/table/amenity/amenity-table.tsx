@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/ui/data-table";
 import { columns, AmenityDto } from "./columns";
 import { Heading } from "@/components/ui/heading";
-import ButtonLink from "@/components/button/link-button";
+import ButtonLink from "@/components/common/button/link-button";
 
 export const AmenityTable = ({ data }: { data: AmenityDto[] }) => {
   async function handleDelete(selectedRows: any[]): Promise<string[]> {
@@ -14,7 +14,7 @@ export const AmenityTable = ({ data }: { data: AmenityDto[] }) => {
     for (const amenity of selectedRows) {
       try {
         const response = await fetch(
-          `https://localhost:7209/api/amenities/${amenity.amenityId}`,
+          `http://localhost:5280/api/amenities/${amenity.amenityId}`,
           {
             method: "DELETE", // Using GET for demo purposes
           }

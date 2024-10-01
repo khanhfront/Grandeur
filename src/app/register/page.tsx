@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/form/user-register-form";
+import RegisterForm from "@/components/common/form/user-register-form";
 import { Button } from "@/components/ui/button";
 import Link from "next/link"; // For navigation
 import { Metadata } from "next";

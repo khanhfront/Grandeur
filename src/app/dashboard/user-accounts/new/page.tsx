@@ -1,5 +1,5 @@
-import ButtonLink from "@/components/button/link-button";
-import UserAccountForm from "@/components/form/create-user-account-form";
+import ButtonLink from "@/components/common/button/link-button";
+import UserAccountForm from "@/components/common/form/create-user-account-form";
 import { Heading } from "@/components/ui/heading";
 
 export default function createUserAccount() {

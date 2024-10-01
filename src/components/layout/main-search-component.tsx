@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "../button/custom-header-button";
+import { Button } from "../common/button/custom-header-button";
 import { CalendarIcon, Search } from "lucide-react";
 import {
   Popover,
@@ -23,13 +23,13 @@ export default function SearchComponent() {
   };
 
   return (
-    <div className="flex w-full md:w-1/2 justify-between items-center rounded-full bg-secondary p-1 gap-2">
+    <div className="flex w-full md:w-1/2 justify-between items-center rounded-full bg-secondary p-1 px-2 gap-2">
       <div className="flex w-3/4 justify-between items-center gap-2">
         {/* Search Input */}
         <Input
           type="text"
-          className="rounded-full w-1/4 flex-1"
-          placeholder="Tìm kiếm điểm đến"
+          className="rounded-full w-1/4 flex-1 bg-background"
+          placeholder="Destination"
           onClick={() => {
             setIsOpen(true);
           }}
@@ -41,7 +41,7 @@ export default function SearchComponent() {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="w-1/4 md:w-auto rounded-full bg-transparent"
+              className="w-1/4 md:w-auto rounded-full bg-transparent border-0"
             >
               <CalendarIcon className="mr-2 h-4 w-4 hidden xl:block" />
               <span className="hidden lg:inline">
@@ -67,7 +67,7 @@ export default function SearchComponent() {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="w-1/4 md:w-auto rounded-full bg-transparent"
+              className="w-1/4 md:w-auto rounded-full bg-transparent border-0"
             >
               <CalendarIcon className="mr-2 h-4 w-4 hidden xl:block" />
               <span className="hidden lg:inline">
@@ -90,7 +90,10 @@ export default function SearchComponent() {
       </div>
 
       {/* Search Button */}
-      <Button className="rounded-full md:w-auto md:mt-0 flex items-center">
+      <Button
+        aria-label="search"
+        className="rounded-full md:w-auto md:mt-0 flex items-center"
+      >
         <span className=" hidden sm:block">{isOpen && "Tìm kiếm"}</span>
         <Search />
       </Button>

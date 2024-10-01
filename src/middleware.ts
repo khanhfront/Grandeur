@@ -9,6 +9,7 @@ import {
 
 export function middleware(request: NextRequest) {
   const token = getToken(request);
+
   const isAuthPage =
     request.nextUrl.pathname === "/login" ||
     request.nextUrl.pathname === "/register";
@@ -27,7 +28,7 @@ export function middleware(request: NextRequest) {
       return handleUnauthorizedRedirect(request, currentPath, "/login");
     }
 
-    if (token && isAuthPage) {
+    if (decoded && isAuthPage && !isTokenExpired(decoded)) {
       const url = request.nextUrl.clone();
       url.pathname = "/";
       return NextResponse.redirect(url);
@@ -42,14 +43,14 @@ export function middleware(request: NextRequest) {
       adminPaths.some((path) => request.nextUrl.pathname.startsWith(path)) &&
       userRole !== "admin"
     ) {
-      return handleUnauthorizedRedirect(request, currentPath, "/unauthorized");
+      return handleUnauthorizedRedirect(request, currentPath, "/login");
     }
 
     if (
       userPaths.some((path) => request.nextUrl.pathname.startsWith(path)) &&
       userRole !== "user"
     ) {
-      return handleUnauthorizedRedirect(request, currentPath, "/unauthorized");
+      return handleUnauthorizedRedirect(request, currentPath, "/login");
     }
   }
 

@@ -1,7 +1,8 @@
 import { DataTable } from "@/components/ui/data-table";
 import { columns, PropertyDto } from "./columns";
 import { Heading } from "@/components/ui/heading";
-import ButtonLink from "@/components/button/link-button";
+import ButtonLink from "@/components/common/button/link-button";
+import UploadPropertiesByExcel from "./excel-input";
 
 export const PropertyTable = ({ data }: { data: PropertyDto[] }) => {
   async function handleDelete(selectedRows: any[]): Promise<string[]> {
@@ -14,7 +15,7 @@ export const PropertyTable = ({ data }: { data: PropertyDto[] }) => {
     for (const property of selectedRows) {
       try {
         const response = await fetch(
-          `https://localhost:7209/api/properties/${property.propertyId}`,
+          `http://localhost:5280/api/properties/${property.propertyId}`,
           {
             method: "DELETE",
           }
@@ -52,17 +53,20 @@ export const PropertyTable = ({ data }: { data: PropertyDto[] }) => {
   }
   return (
     <div className="space-y-2">
-      <div className="flex item-start justify-between">
+      <div className="flex items-center justify-between">
         <Heading
           title={`Property (${data.length})`}
           description="Manage property Table for Admin"
         />
-        <ButtonLink
-          url="/dashboard/properties/new"
-          className="bg-foreground text-background"
-        >
-          Add new
-        </ButtonLink>
+        <div className="flex gap-2 items-center">
+          <ButtonLink
+            url="/dashboard/properties/new"
+            className="bg-foreground text-background"
+          >
+            Add new
+          </ButtonLink>
+          <UploadPropertiesByExcel />
+        </div>
       </div>
       <DataTable
         searchKey="propertyName"

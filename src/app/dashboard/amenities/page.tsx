@@ -1,12 +1,13 @@
 // page.tsx
-
 import { AmenityTable } from "@/components/table/amenity/amenity-table";
 import { AmenityDto } from "@/components/table/amenity/columns";
 import { a } from "@/utils/antiSSL";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   try {
-    const response = await a.get("https://localhost:7209/api/amenities");
+    const response = await a.get("http://localhost:5280/api/amenities");
     const data: AmenityDto[] = response.data;
 
     return (

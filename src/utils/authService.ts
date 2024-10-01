@@ -10,7 +10,7 @@ export async function handleLogin(
   router: AppRouterInstance,
   redirect: string | null
 ) {
-  const res = await fetch("https://localhost:7209/api/auth/login", {
+  const res = await fetch("http://localhost:5280/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,14 +36,14 @@ export async function handleLogin(
         router.push("/"); // Chuyển hướng đến trang không có quyền
       } else {
         router.push(redirect); // Chuyển hướng đến trang mong muốn
+        toast.success(data.message || "Đăng nhập thành công");
       }
     } else {
       // Điều hướng mặc định dựa trên role
       const defaultRedirectUrl = userRole === "admin" ? "/dashboard" : "/user";
       router.push(defaultRedirectUrl);
+      toast.success(data.message || "Welcome back!");
     }
-
-    toast.success(data.message || "Đăng nhập thành công");
   } else {
     const data = await res.json();
     toast.error(data.message || "Đăng nhập thất bại");
@@ -52,7 +52,7 @@ export async function handleLogin(
 
 // utils/authService.ts
 export const handleLogout = async () => {
-  const res = await fetch("https://localhost:7209/api/auth/logout", {
+  const res = await fetch("http://localhost:5280/api/auth/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -95,5 +95,12 @@ export function handleUnauthorizedRedirect(
   const url = request.nextUrl.clone();
   url.pathname = redirectPath;
   url.searchParams.set("redirect", currentPath);
-  return NextResponse.redirect(url);
+
+  const response = NextResponse.redirect(url);
+
+  if (redirectPath === "/login" || redirectPath === "/register") {
+    response.cookies.set("token", "", { maxAge: -1, path: "/" });
+  }
+
+  return response;
 }

@@ -1,4 +1,4 @@
-import AddAmenityForm from "@/components/form/amenity-form";
+import AddAmenityForm from "@/components/common/form/amenity-form";
 import { Heading } from "@/components/ui/heading";
 
 export default function createAmenity() {

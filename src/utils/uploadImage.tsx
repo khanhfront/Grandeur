@@ -1,4 +1,4 @@
-import { storage } from "./firebase"; // Đảm bảo import đúng nơi bạn khởi tạo Firebase
+import { storage } from "./firebase";
 import {
   ref,
   uploadBytes,
@@ -7,10 +7,10 @@ import {
 } from "firebase/storage";
 
 type UploadImageOptions = {
-  file: File; // File ảnh cần upload
-  folderPath?: string; // Đường dẫn đến thư mục trong Storage (mặc định là root)
-  fileName?: string; // Tên file trong Storage (mặc định là tên gốc)
-  metadata?: UploadMetadata; // Metadata bổ sung (nếu có)
+  file: File;
+  folderPath?: string;
+  fileName?: string;
+  metadata?: UploadMetadata;
 };
 
 export const uploadImageToFirebase = async ({
