@@ -102,7 +102,7 @@ export default function UpdatePropertyForm({ property }: PropertyCardProps) {
     },
   });
 
-  const fileTypes = ["JPG", "PNG"];
+  const fileTypes = ["JPG", "PNG", "JFIF"];
 
   const [initialImage, setInitialImage] = useState<InitialImage[]>([]);
 

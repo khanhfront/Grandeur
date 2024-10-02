@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,9 +40,9 @@ export const metadata: Metadata = {
     images: ["https://grandeur.com/images/twitter-image.jpg"], // Đường dẫn hình ảnh cho Twitter
   },
   icons: {
-    icon: "/favicon.ico", // Đường dẫn favicon
-    shortcut: "/favicon.ico", // Shortcut icon cho các nền tảng khác
-    apple: "/favicon.ico", // Icon cho thiết bị Apple
+    icon: "/logo.svg", // Đường dẫn favicon
+    shortcut: "/logo.svg", // Shortcut icon cho các nền tảng khác
+    apple: "/logo.svg", // Icon cho thiết bị Apple
   },
 };
 
@@ -52,6 +53,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <Head>
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+      </Head>
       <body className={`${inter.className} `} suppressHydrationWarning={true}>
         <ThemeProvider
           attribute="class"

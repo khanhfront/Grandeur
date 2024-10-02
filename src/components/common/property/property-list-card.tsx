@@ -1,4 +1,6 @@
-import PropertyCard from "./property-card";
+import dynamic from "next/dynamic";
+
+const PropertyCard = dynamic(() => import("./property-card"));
 
 export const revalidate = 1000;
 const REVALIDATE_TIME = 1000;

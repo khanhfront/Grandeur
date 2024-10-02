@@ -10,7 +10,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
@@ -73,7 +72,11 @@ export async function AccountDropdownMenu() {
         >
           <AlignJustify className="h-4 w-4 md:h-5 md:w-5" />
           <Avatar className="ml-2 w-6 h-6 sm:w-9 sm:h-9">
-            <AvatarImage src={imgUrl} alt="user avatar" />
+            <AvatarImage
+              src={imgUrl}
+              alt="user avatar"
+              className="w-6 h-6 sm:w-9 sm:h-9"
+            />
             <AvatarFallback className="text-blue-500">
               {user?.userLastName[0] || "U"}
             </AvatarFallback>

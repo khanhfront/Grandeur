@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 96%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -71,51 +71,54 @@
     @apply bg-background text-foreground;
   }
 }
-
-.dark .amzcard {
-  margin: 0 auto;
-  text-align: center;
-  border-radius: 9999px;
-  position: relative;
-}
-
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.dark .amzcard::after,
-.dark .amzcard::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 99.8%;
-  background-image: conic-gradient(
-    from var(--angle),
-    #ff4545,
-    #00ff99,
-    #006aff,
-    #ff0095,
-    #ff4545
-  );
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  z-index: -1;
-  padding: 3px;
-  border-radius: 10000px;
-  animation: 3s spin linear infinite;
-}
-.dark .amzcard::before {
-  filter: blur(1.5rem);
-  opacity: 0.5;
-}
-@keyframes spin {
-  from {
-    --angle: 0deg;
+@layer components {
+  .amzcard {
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 9999px;
+    position: relative;
   }
-  to {
-    --angle: 360deg;
+
+  @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .dark .amzcard::after,
+  .dark .amzcard::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 99.8%;
+    background-image: conic-gradient(
+      from var(--angle),
+      #ff4545,
+      #00ff99,
+      #006aff,
+      #ff0095,
+      #ff4545
+    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    padding: 3px;
+    border-radius: 10000px;
+    animation: spin 3s linear infinite;
+  }
+
+  .dark .amzcard::before {
+    filter: blur(1.5rem);
+    opacity: 0.5;
+  }
+
+  @keyframes spin {
+    from {
+      --angle: 0deg;
+    }
+    to {
+      --angle: 360deg;
+    }
   }
 }

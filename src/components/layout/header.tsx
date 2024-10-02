@@ -1,6 +1,8 @@
 import { ModeToggle } from "@/components/common/button/mode-toggle";
 import { AccountDropdownMenu } from "@/components/layout/accountNav";
 import SearchComponent from "@/components/layout/main-search-component";
+import Image from "next/image";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -16,13 +18,25 @@ const Header = () => {
         id="userHeader"
         className="amzcard
         w-full bg-background text-hdbg 
-        p-1 sm:px-1 md:px-6 lg:px-10 
+        p-1 sm:px-1 md:px-4 lg:px-8 
         flex items-center justify-between sm:justify-center md:justify-between
         z-100 rounded-full"
       >
-        <div className=" hidden md:block text-lg sm:text-xl font-bold">
-          Logo
-        </div>
+        <Link
+          href={"/"}
+          className="hidden md:flex items-center text-sm font-bold gap-1"
+        >
+          <Image
+            src="/logo.svg"
+            alt="Grandeur logo"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+          <span className="bg-gradient-to-r from-[#F32189] to-[#83CDF1] bg-clip-text text-transparent">
+            Grandeur
+          </span>
+        </Link>
         <SearchComponent />
         <div className="hidden md:flex items-center justify-between space-x-2 sm:space-x-4">
           <ModeToggle />

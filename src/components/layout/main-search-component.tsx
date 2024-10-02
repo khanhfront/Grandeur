@@ -28,7 +28,8 @@ export default function SearchComponent() {
         {/* Search Input */}
         <Input
           type="text"
-          className="rounded-full w-1/4 flex-1 bg-background"
+          name="search destination"
+          className="rounded-full w-1/4 flex-1 bg-background placeholder:text-[#000000] placeholder:opacity-100 dark:placeholder:text-muted-foreground"
           placeholder="Destination"
           onClick={() => {
             setIsOpen(true);

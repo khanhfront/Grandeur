@@ -54,18 +54,24 @@ const PropertyCard = ({ property, index }: PropertyCardProps) => {
     hover:translate-y-1 transition-translate transform-gpu border-transparent dark:border-border"
     >
       <CardHeader className="p-0">
-        <div className="relative w-full h-0 pb-[60%]">
+        <div className="relative w-full h-0 pb-[80%] block">
           <Image
             src={property.mainPhotoUrl}
             alt={property.propertyName}
+            title={property.propertyName}
             fill
-            className="object-cover rounded-t-lg"
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 24vw"
-            priority={index < 8}
+            style={{
+              objectFit: "cover",
+            }}
+            className="object-center rounded-t-lg"
+            sizes="(max-width: 430px) 50vw, (max-width: 640px) 90vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            priority={index < 2}
+            loading={index < 2 ? "eager" : "lazy"}
+            decoding="sync"
           />
           <SaveWishedProperty propertyId={property.propertyId} />
           {isLoved && (
-            <Badge className="absolute top-2 left-2 md:left-3 lg:left-4 bg-hdbg text-white dark:text-black outline outline-[1px] outline-white">
+            <Badge className="absolute top-2 left-2 md:left-3 lg:left-4 bg-hdbg text-black outline outline-[1px] outline-white">
               HOT
             </Badge>
           )}

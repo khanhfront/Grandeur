@@ -8,6 +8,7 @@ import { useSidebar } from "@/hooks/use-sidebar";
 import Link from "next/link";
 import PageContainer from "./page-container";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import Image from "next/image";
 
 type SidebarProps = {
   className?: string;
@@ -30,7 +31,13 @@ export default function Sidebar({ className }: SidebarProps) {
     >
       <div className={cn(`hidden p-3 pt-5 lg:block text-hdbg mr-5 font-bold `)}>
         <Link href={"/dashboard"} className="text-lg ">
-          Logo
+          <Image
+            src="/logo.svg"
+            alt="Grandeur logo"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
         </Link>
       </div>
       <ChevronLeft

@@ -1,6 +1,5 @@
 import { AreaLargeChart } from "@/components/common/chart/area-chart";
 import { Component } from "@/components/common/chart/bar-chart-multi";
-import PageContainer from "@/components/layout/page-container";
 
 export default function Page() {
   return (
