@@ -23,7 +23,7 @@ export function AdminNav() {
           className="h-10 w-10 rounded-full border-2 border-border bg-background text-foreground hover:bg-hdbg"
         >
           <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatar.jpg" alt="@Grandeur" />
+            <AvatarImage src="/avatar-svgrepo-com.svg" alt="@Grandeur" />
             <AvatarFallback>AD</AvatarFallback>
           </Avatar>
         </Button>

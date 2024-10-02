@@ -62,7 +62,7 @@ export async function AccountDropdownMenu() {
   } else {
     routeNav = authRoutes;
   }
-  const imgUrl = user?.avatarImageUrl || "/avatar.jpg";
+  const imgUrl = user?.avatarImageUrl || "/avatar-svgrepo-com.svg";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
