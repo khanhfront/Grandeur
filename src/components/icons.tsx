@@ -27,9 +27,11 @@ import {
   ChartNoAxesCombined,
   CircleHelp,
 } from "lucide-react";
+import { SiApplearcade } from "react-icons/si";
 
 export const Icons = {
   arrowRight: ArrowRight,
+  siApplearcade: SiApplearcade,
   chart: ChartNoAxesCombined,
   combine: Combine, // Biểu tượng kiểm tra tiện ích đã có
   settings: Settings, // Biểu tượng thiết lập loại tiện ích

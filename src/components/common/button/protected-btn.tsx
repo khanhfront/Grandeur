@@ -1,6 +1,6 @@
 "use client";
 
-import { checkUserLogin } from "@/actions/serverActions";
+import { checkUserLogin } from "@/serverActions/authActions";
 import { Button } from "@/components/ui/button";
 import { handleLogout } from "@/utils/authService";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
@@ -27,13 +27,29 @@ function RefreshLogoutButton() {
 interface protectedBtnProps {
   className?: string;
   children?: ReactNode;
-  onClick: () => void;
+  loadingChildren?: ReactNode;
+  variant?:
+    | "link"
+    | "destructive"
+    | "default"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
+  onClick?: () => void;
+  type?: "submit" | "button" | "reset" | undefined;
+  isAbleDisable?: boolean;
 }
 
 export function ProtectedButton({
   className,
   children,
-  onClick,
+  onClick = () => {},
+  variant,
+  loadingChildren,
+  type,
+  isAbleDisable = true,
 }: protectedBtnProps) {
   const [btnState, setBtnState] = useState(false);
   const router = useRouter();
@@ -42,9 +58,10 @@ export function ProtectedButton({
   const handleClick = async () => {
     setBtnState(true);
     const isLogged = await checkUserLogin();
-    setBtnState(false);
+
     if (isLogged.isLoggedIn && isLogged.role === "user") {
       onClick();
+      setBtnState(false);
     } else if (isLogged.isLoggedIn) {
       const msg =
         "Role " +
@@ -53,17 +70,31 @@ export function ProtectedButton({
       toast.error(msg, {
         action: <RefreshLogoutButton />,
       });
+      setBtnState(false);
     } else {
-      const searchParamsUrl = new URLSearchParams(
-        searchParams.get("redirect")?.toString()
-      );
-      searchParamsUrl.set("redirect", pathname);
-      router.push(`/login?${searchParamsUrl}`);
+      if (!pathname.startsWith("/login")) {
+        const searchParamsUrl = new URLSearchParams(
+          searchParams.get("redirect")?.toString()
+        );
+        console.log(searchParamsUrl.toString());
+        searchParamsUrl.set("redirect", pathname);
+        console.log(searchParamsUrl.toString());
+        router.push(`/login?${searchParamsUrl}`);
+      } else {
+        toast.message("Bạn cần đăng nhập trước");
+      }
+      setBtnState(false);
     }
   };
   return (
-    <Button className={className} disabled={btnState} onClick={handleClick}>
-      {btnState ? "Loading" : children}
+    <Button
+      type={type}
+      variant={variant ? variant : "default"}
+      className={className}
+      disabled={isAbleDisable ? btnState : false}
+      onClick={handleClick}
+    >
+      {btnState && isAbleDisable ? loadingChildren || "Loading" : children}
     </Button>
   );
 }

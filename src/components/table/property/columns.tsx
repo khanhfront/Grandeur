@@ -24,11 +24,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
 import { a } from "@/utils/antiSSL";
-import ButtonLink from "@/components/common/button/link-button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export type PropertyDto = {
@@ -96,7 +94,7 @@ const PropertyActionsCell = ({ property }: { property: PropertyDto }) => {
           <DropdownMenuItem
             onClick={() =>
               router.push(
-                `/dashboard/properties/${property.propertyId}/attribute`
+                `/dashboard/properties/${property.propertyId}/amenity`
               )
             }
           >

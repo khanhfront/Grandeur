@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ButtonAddIcon from "../../button/add-icon-button";
 import { Plus, Check } from "lucide-react"; // Thêm icon Check
 import { toast } from "sonner";
+import { revalidateF } from "@/serverActions/revalidateFt";
 type Amenity = {
   amenityId: number;
   amenityName: string;
@@ -69,6 +70,7 @@ export default function AmenityAddTabs({
           ...prev,
           [amenityId]: true,
         }));
+        revalidateF(`property-${id}`);
         toast.success("Thêm tiện ích thành công", { duration: 1500 });
         router.refresh();
       }
@@ -101,6 +103,7 @@ export default function AmenityAddTabs({
           ...prev,
           [amenityId]: false,
         }));
+        revalidateF(`property-${id}`);
         toast.success("Xóa tiện ích thành công", { duration: 1500 });
         router.refresh();
       }

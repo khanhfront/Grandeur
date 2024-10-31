@@ -13,12 +13,20 @@ export function middleware(request: NextRequest) {
   const isAuthPage =
     request.nextUrl.pathname === "/login" ||
     request.nextUrl.pathname === "/register";
+  const adminPaths = ["/dashboard"];
+  const userPaths = ["/account-settings", "/message", "/payment"];
   const currentPath = request.nextUrl.pathname;
 
   if (!token) {
-    if (request.nextUrl.pathname.startsWith("/dashboard") && !isAuthPage) {
+    if (
+      adminPaths.some((path) => request.nextUrl.pathname.startsWith(path)) &&
+      !isAuthPage
+    ) {
       return handleUnauthorizedRedirect(request, currentPath, "/login");
-    } else if (request.nextUrl.pathname.startsWith("/user") && !isAuthPage) {
+    } else if (
+      userPaths.some((path) => request.nextUrl.pathname.startsWith(path)) &&
+      !isAuthPage
+    ) {
       return handleUnauthorizedRedirect(request, currentPath, "/login");
     }
   } else {
@@ -35,9 +43,6 @@ export function middleware(request: NextRequest) {
     }
 
     const userRole = decoded.role;
-
-    const adminPaths = ["/dashboard"];
-    const userPaths = ["/user"];
 
     if (
       adminPaths.some((path) => request.nextUrl.pathname.startsWith(path)) &&
@@ -58,5 +63,12 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/user/:path*", "/login", "/register"],
+  matcher: [
+    "/dashboard/:path*",
+    "/account-settings/:path*",
+    "/message/:path*",
+    "/payment/:path*",
+    "/login",
+    "/register",
+  ],
 };

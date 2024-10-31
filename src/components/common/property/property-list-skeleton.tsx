@@ -1,25 +1,35 @@
-export const PropertyCardSkeleton = () => {
+// components/common/property/PropertyListSkeleton.tsx
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+
+const PropertyCardSkeleton = () => {
   return (
-    <div className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 hover:translate-y-1 transition-translate transform-gpu border-transparent dark:border-border animate-pulse">
-      <div className="p-0">
-        <div className="relative w-full h-0 pb-[60%] bg-gray-300 rounded-t-lg" />
-      </div>
-      <div className="px-2 md:px-3 lg:px-4 pt-1 pb-0">
-        <div className="h-6 bg-gray-300 rounded w-3/4 mb-1"></div>
-        <div className="h-5 bg-gray-300 rounded w-1/2 mb-1"></div>
-        <div className="h-4 bg-gray-300 rounded w-1/3 mb-2"></div>
-        <div className="flex justify-between items-center mb-1 md:mb-3 xl:mb-4">
-          <div className="flex gap-2">
-            <div className="h-5 w-8 bg-gray-300 rounded"></div>
-            <div className="h-5 w-8 bg-gray-300 rounded"></div>
-            <div className="h-5 w-8 bg-gray-300 rounded"></div>
-          </div>
-          <div className="h-5 bg-gray-300 rounded w-1/4"></div>
-        </div>
-      </div>
-      <div className="flex justify-center items-center px-2 md:px-3 lg:px-4 pb-2 md:pb-4">
-        <div className="h-8 w-full bg-gray-300 rounded"></div>
-      </div>
+    <Card className="overflow-hidden shadow-lg animate-pulse">
+      <CardHeader className="p-0 relative">
+        <div className="relative w-full h-0 pb-[80%] bg-gray-200"></div>
+      </CardHeader>
+      <CardContent className="px-2 pt-1 pb-0">
+        <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+        <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+      </CardContent>
+      <CardFooter className="flex justify-center items-center px-2 pb-2">
+        <div className="w-full h-8 bg-gray-200 rounded"></div>
+      </CardFooter>
+    </Card>
+  );
+};
+
+export const PropertyListSkeleton = () => {
+  return (
+    <div className="grid gap-2 md:gap-3 lg:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 px-1 pb-2">
+      {/* Hiển thị 4 skeleton cards */}
+      {Array.from({ length: 4 }).map((_, index) => (
+        <PropertyCardSkeleton key={index} />
+      ))}
     </div>
   );
 };

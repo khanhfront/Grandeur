@@ -84,7 +84,8 @@ type Property = {
   bathroomCount: number;
   kitchenCount: number;
   minimumStay: number;
-  guestCount: number;
+  maxGuest: number;
+  propertyDescription: string;
 };
 
 type PropertyCardType = {
@@ -101,5 +102,14 @@ type PropertyCardType = {
   isSponsored?: boolean;
   bedCount: number;
   bathroomCount: number;
-  guestCount: number;
+  maxGuest: number;
 };
+
+interface CancellationPolicy {
+  cancellationPolicyId: number;
+  cancellationPolicyTypeName: string;
+  cancellationPolicyTypeId: number;
+  refundPercentage: number;
+  milestoneDate: number;
+  propertyId: number;
+}

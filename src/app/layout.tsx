@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import Head from "next/head";
+import { Toaster } from "@/components/ui/custom-sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +13,7 @@ export const metadata: Metadata = {
   },
   description:
     "Grandeur là nền tảng đặt chỗ và trải nghiệm tốt nhất dành cho bạn. Tìm chỗ nghỉ ngơi độc đáo hoặc cho thuê không gian của bạn với chúng tôi.",
+  metadataBase: new URL("https://grandeur.com"),
   openGraph: {
     title: "Grandeur",
     description:
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Grandeur",
     images: [
       {
-        url: "https://grandeur.com/images/og-image.jpg", // Thay bằng đường dẫn thực tế
+        url: "/logo.svg", // Thay bằng đường dẫn thực tế
         width: 1200,
         height: 630,
         alt: "Logo Grandeur",
@@ -52,10 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <Head>
-        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
-      </Head>
+    <html lang="vi" suppressHydrationWarning={true} className="scroll-smooth">
       <body className={`${inter.className} `} suppressHydrationWarning={true}>
         <ThemeProvider
           attribute="class"
@@ -66,7 +63,6 @@ export default function RootLayout({
           {children}
           <Toaster
             expand={true}
-            position="top-right"
             toastOptions={{
               className: "border-foreground",
               duration: 1500,

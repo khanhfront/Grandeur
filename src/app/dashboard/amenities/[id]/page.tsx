@@ -1,4 +1,4 @@
-import AmenityCard from "@/components/info-detail/amenity/amenity-details";
+import AmenityCard from "@/components/dashboard/info-detail/amenity/amenity-details";
 import { a } from "@/utils/antiSSL"; // Import axios instance
 import { notFound } from "next/navigation";
 

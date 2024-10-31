@@ -1,4 +1,6 @@
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { PropertyListSkeleton } from "./property-list-skeleton";
 
 const PropertyCard = dynamic(() => import("./property-card"));
 
@@ -27,14 +29,16 @@ export default async function PropertyListCard() {
   const propertyList = await getPropertyList();
 
   return (
-    <div className="grid gap-2 md:gap-3 lg:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 px-1 pb-2">
-      {propertyList.length > 0 ? (
-        propertyList.map((property: PropertyCardType, index: number) => (
-          <PropertyCard property={property} key={index} index={index} />
-        ))
-      ) : (
-        <div>No properties available</div>
-      )}
-    </div>
+    <Suspense fallback={<PropertyListSkeleton />}>
+      <div className="grid gap-2 md:gap-3 lg:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 px-1 pb-2">
+        {propertyList.length > 0 ? (
+          propertyList.map((property: PropertyCardType, index: number) => (
+            <PropertyCard property={property} key={index} index={index} />
+          ))
+        ) : (
+          <div>No properties available</div>
+        )}
+      </div>
+    </Suspense>
   );
 }

@@ -1,4 +1,4 @@
-import UserCard from "@/components/info-detail/user/user-details"; // Import UserCard
+import UserCard from "@/components/dashboard/info-detail/user/user-details"; // Import UserCard
 import { a } from "@/utils/antiSSL"; // Import axios instance
 import { notFound } from "next/navigation";
 

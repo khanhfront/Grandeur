@@ -2,22 +2,37 @@
 
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const SaveWishedProperty = ({ propertyId }: { propertyId: number }) => {
+type SaveWishedPropertyProps = {
+  propertyId: number;
+};
+
+const SaveWishedProperty = ({ propertyId }: SaveWishedPropertyProps) => {
   const [isSaved, setIsSaved] = useState(false);
+
   const toggleSave = () => {
     setIsSaved(!isSaved);
+    // Thực hiện logic lưu vào danh sách yêu thích tại đây (API call, etc.)
   };
+
   return (
     <button
       onClick={toggleSave}
-      className="absolute top-2 right-2 md:right-3 lg:right-4 p-1 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+      className={cn(
+        "absolute top-0 right-0 pt-2 pr-2 md:pr-3 lg:pr-4 ",
+        "min-w-[44px] min-h-[44px] rounded-full flex justify-end",
+        "bg-transparent hover:bg-transparent focus:outline-none"
+      )}
       aria-label={isSaved ? "Remove from saved" : "Save property"}
     >
-      <FaHeart
-        className={cn(isSaved ? "text-red-500" : "text-gray-400", "w-3 h-3")}
-      />
+      <div className="p-1 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300 flex items-center justify-center hover:outline outline-hdbg">
+        {isSaved ? (
+          <FaHeart className="text-red-500 w-3 h-3" />
+        ) : (
+          <FaRegHeart className="text-gray-400 w-3 h-3" />
+        )}
+      </div>
     </button>
   );
 };

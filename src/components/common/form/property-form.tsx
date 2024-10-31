@@ -72,7 +72,7 @@ const formSchema = z.object({
     (val) => (val === "" ? null : parseInt(val as string)),
     z.number().nullable().optional()
   ),
-  guestCount: z.preprocess(
+  maxGuest: z.preprocess(
     (val) => (val === "" ? null : parseInt(val as string)),
     z.number().nullable().optional()
   ),
@@ -101,7 +101,7 @@ export default function AddPropertyForm() {
       bathroomCount: "",
       kitchenCount: "",
       minimumStay: "",
-      guestCount: "",
+      maxGuest: "",
     },
   });
 
@@ -356,7 +356,7 @@ export default function AddPropertyForm() {
         />
         <FormField
           control={form.control}
-          name="guestCount"
+          name="maxGuest"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Số khách</FormLabel>

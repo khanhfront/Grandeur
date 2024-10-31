@@ -20,6 +20,7 @@ const config = {
     extend: {
       boxShadow: {
         primary: "var(--shadow-color)", // Sử dụng biến CSS cho màu shadow
+        dark: "0 4px 10px rgba(255, 255, 255, 0.2)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -56,6 +57,9 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
         hdbg: "hsl(var(--hdbg))",
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+        error: "hsl(var(--error))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -63,6 +67,14 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0", transform: "scale(0.75)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "fade-out": {
+          "0%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "0", transform: "scale(0.75)" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -75,6 +87,8 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "fade-out": "fade-out 0.5s ease-out forwards",
       },
     },
   },

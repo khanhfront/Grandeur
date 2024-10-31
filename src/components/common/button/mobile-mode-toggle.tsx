@@ -27,9 +27,11 @@ export function MobileModeToggle() {
       <DropdownMenuTrigger asChild>
         <Button
           size="icon"
-          variant="outline"
           aria-label="Mode toggle"
-          className="rounded-full text-foreground hover:bg-hdbg flex md:hidden fixed bottom-12 right-6 sm:right-12"
+          className="rounded-full text-foreground bg-background outline outline-[1px] hover:bg-hdbg flex 
+          md:hidden fixed bottom-20 right-6 min-[200px]:right-8 sm:right-14 z-20
+          h-6 w-6 p-1
+          sm:h-7 sm:w-7 "
         >
           <Sun className="h-4 w-4 sm:h-5 sm:w-5 md:h-[1.2rem] md:w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <MoonStar className="absolute h-4 w-4 sm:h-5 sm:w-5 md:h-[1.2rem] md:w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

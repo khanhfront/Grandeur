@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import { useSidebar } from "@/hooks/use-sidebar";
 import Link from "next/link";
-import PageContainer from "./page-container";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import Image from "next/image";
 
@@ -24,13 +23,13 @@ export default function Sidebar({ className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        `relative hidden md:block h-screen flex-none border-r bg-card transition-[width] duration-500 `,
+        `relative hidden md:block h-screen flex-none border-r bg-card transition-all duration-500 `,
         !isMinimized ? "w-64" : "w-[75px]",
         className
       )}
     >
-      <div className={cn(`hidden p-3 pt-5 lg:block text-hdbg mr-5 font-bold `)}>
-        <Link href={"/dashboard"} className="text-lg ">
+      <div className={cn(`hidden p-3 pt-5 lg:block text-hdbg mr-5 font-bold`)}>
+        <Link href={"/dashboard"} className="text-lg flex items-center gap-1">
           <Image
             src="/logo.svg"
             alt="Grandeur logo"
@@ -38,6 +37,11 @@ export default function Sidebar({ className }: SidebarProps) {
             height={40}
             className="object-contain"
           />
+          {!isMinimized && (
+            <span className="transition-all duration-500 opacity-0 scale-75 animate-fade-in">
+              Grandeur
+            </span>
+          )}
         </Link>
       </div>
       <ChevronLeft

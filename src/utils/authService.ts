@@ -2,7 +2,7 @@ import { toast } from "sonner";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { cookies } from "next/headers";
+import { revalidateP } from "@/serverActions/revalidateFt";
 
 export async function handleLogin(
   email: string,
@@ -27,20 +27,26 @@ export async function handleLogin(
     const userRole = data.role;
 
     if (redirect) {
-      // Kiểm tra xem phần đầu của redirect là /dashboard hoặc /user
+      // Kiểm tra xem phần đầu của redirect là /dashboard hoặc /account-settings
       if (redirect.startsWith("/dashboard") && userRole !== "admin") {
         toast.error("Bạn không có quyền truy cập trang này.");
         router.push("/"); // Chuyển hướng đến trang không có quyền
-      } else if (redirect.startsWith("/user") && userRole !== "user") {
+      } else if (
+        redirect.startsWith("/account-settings") &&
+        userRole !== "user"
+      ) {
         toast.error("Bạn không có quyền truy cập trang này.");
         router.push("/"); // Chuyển hướng đến trang không có quyền
       } else {
+        revalidateP(redirect);
         router.push(redirect); // Chuyển hướng đến trang mong muốn
         toast.success(data.message || "Đăng nhập thành công");
       }
     } else {
       // Điều hướng mặc định dựa trên role
-      const defaultRedirectUrl = userRole === "admin" ? "/dashboard" : "/user";
+      const defaultRedirectUrl =
+        userRole === "admin" ? "/dashboard" : "/account-settings";
+      revalidateP(defaultRedirectUrl);
       router.push(defaultRedirectUrl);
       toast.success(data.message || "Welcome back!");
     }

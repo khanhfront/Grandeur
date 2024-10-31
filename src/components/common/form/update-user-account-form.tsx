@@ -95,8 +95,8 @@ export default function UpdateUserAccountForm() {
 
       if (response.status === 201) {
         toast.success("Tạo người dùng thành công");
-        router.refresh();
         router.push("/dashboard/user-accounts");
+        router.refresh();
       } else {
         toast.error(`Tạo tài khoản thất bại: ${response.statusText}`);
       }

@@ -1,10 +1,21 @@
 import dynamic from "next/dynamic";
 import { PuffLoader } from "react-spinners";
-import Header from "@/components/layout/header";
-import PageContainer from "@/components/layout/page-container";
 import PropertyListCard from "@/components/common/property/property-list-card";
-import { Suspense } from "react";
+import Footer from "@/components/layout/footer";
+import DivContainer from "@/components/layout/div-container";
+import HeaderSkeleton from "@/components/layout/header-skeleton";
 
+const MobileNavigation = dynamic(
+  () => import("@/components/layout/mobile-navigation"),
+  {
+    ssr: false,
+  }
+);
+
+const Header = dynamic(() => import("@/components/layout/header"), {
+  ssr: false,
+  loading: () => <HeaderSkeleton />,
+});
 const MobileModeToggle = dynamic(
   () =>
     import("@/components/common/button/mobile-mode-toggle").then(
@@ -31,19 +42,13 @@ export default function Home() {
   return (
     <main>
       <Header />
-      <PageContainer isMain={true}>
+      <DivContainer>
         <StructureTab />
-        <Suspense
-          fallback={
-            <div className="w-full flex h-16 items-center justify-center">
-              <PuffLoader size={20} color="#00cccc" />
-            </div>
-          }
-        >
-          <PropertyListCard />
-        </Suspense>
+        <PropertyListCard />
         <MobileModeToggle />
-      </PageContainer>
+        <Footer />
+      </DivContainer>
+      <MobileNavigation />
     </main>
   );
 }

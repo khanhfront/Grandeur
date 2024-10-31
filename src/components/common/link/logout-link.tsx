@@ -2,21 +2,21 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { handleLogout } from "@/utils/authService"; // Import hàm handleLogout
+import { handleLogout } from "@/utils/authService";
 import Link from "next/link";
 
 export function LogoutLink() {
   const router = useRouter();
 
-  const onLogoutClick = async () => {
+  const onLogoutClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của link
     const { success, message } = await handleLogout();
 
     if (success) {
-      toast.success(message);
-
-      // Chuyển hướng về trang chủ
-      router.push("/");
-      router.refresh();
+      router.push("/login");
+      toast.success(message, {
+        duration: 1000,
+      });
     } else {
       toast.error(message);
       router.refresh();
@@ -25,7 +25,7 @@ export function LogoutLink() {
 
   return (
     <Link
-      href="/login" // Redirect to login page
+      href="/" // Redirect to login page
       onClick={onLogoutClick}
       className="w-full text-sm sm:text-base"
     >

@@ -1,4 +1,4 @@
-import UpdatePropertyForm from "@/components/info-detail/property/property-details";
+import UpdatePropertyForm from "@/components/dashboard/info-detail/property/property-details";
 import { a } from "@/utils/antiSSL"; // Import axios instance
 import { notFound } from "next/navigation";
 

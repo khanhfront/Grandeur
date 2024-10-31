@@ -147,7 +147,7 @@ export const navSections: NavSection[] = [
   },
   {
     title: "Amenities",
-    icon: "image",
+    icon: "siApplearcade",
     items: navItems.filter((navItem) =>
       ["All Amenities", "Add New Amenity"].includes(navItem.title)
     ),

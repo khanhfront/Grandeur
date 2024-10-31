@@ -56,9 +56,10 @@ const CommandSearch = () => {
         <CommandInput
           placeholder="Tìm kiếm menu"
           value={query}
-          onValueChange={setQuery} // Sử dụng setQuery trực tiếp thay vì event object
+          onValueChange={setQuery}
+          className="mx-1 mt-1"
         />
-        <CommandList>
+        <CommandList className="mx-1 mb-1">
           {filteredItems.length > 0 ? (
             filteredItems.map((item, index) => (
               <CommandItem

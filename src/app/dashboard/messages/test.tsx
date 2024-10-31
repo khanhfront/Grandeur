@@ -1,5 +1,5 @@
 "use client";
-import UserAvatar from "@/components/info-detail/component/user-avatar";
+import UserAvatar from "@/components/dashboard/info-detail/component/user-avatar";
 import { Camera } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
