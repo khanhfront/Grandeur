@@ -28,13 +28,32 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import { formatCurrencyVND } from "@/utils/formatText";
 
-async function checkValidPromoCode(promoCode: string): Promise<number> {
-  // Fake API call
-  if (promoCode === "DISCOUNT50") {
-    return 50; // 50% discount
+async function checkValidPromoCode(promoCode: string): Promise<{
+  isValid: boolean;
+  discountValue: number;
+  discountPercent: number;
+}> {
+  try {
+    const response = await fetch(
+      `http://localhost:5280/api/PromoCodes/${promoCode}`,
+      {
+        cache: "no-cache",
+      }
+    );
+
+    if (!response.ok) {
+      toast.warning("Mã giảm không hợp lệ");
+      return { isValid: false, discountValue: 0, discountPercent: 0 };
+    }
+
+    const data = await response.json();
+    return data; // Trả về nguyên dữ liệu nhận được từ backend
+  } catch (error) {
+    console.error("Lỗi khi kiểm tra mã giảm giá:", error);
+    return { isValid: false, discountValue: 0, discountPercent: 0 };
   }
-  return 0;
 }
 
 const calculateNights = (checkIn: string, checkOut: string): number => {
@@ -48,11 +67,13 @@ const calculateNights = (checkIn: string, checkOut: string): number => {
 export function ReserveForm({
   propertyId,
   pricePerNight,
+  serviceFee,
   maxGuest,
   cancellationPolicyList,
 }: {
   propertyId: number;
   pricePerNight: number;
+  serviceFee: number;
   maxGuest: number;
   cancellationPolicyList: CancellationPolicy[];
 }) {
@@ -117,6 +138,8 @@ export function ReserveForm({
   type FormValues = z.infer<typeof formSchema>;
   const [promoCode, setPromoCode] = useState<string>("");
   const [discount, setDiscount] = useState<number>(0);
+  const [discountV, setDiscountV] = useState<number>(0);
+  const [discountP, setDiscountP] = useState<number>(0);
   const [nightCount, setNightCount] = useState<number>(1);
   const [totalGuests, setTotalGuests] = useState<number>(1);
   const [checkIn, setCheckIn] = useState<string>(
@@ -155,6 +178,9 @@ export function ReserveForm({
       setCheckOut(formattedTo);
       setValue("checkOutDate", formattedTo);
     }
+    if (selectedRange?.from && selectedRange?.to) {
+      setNightCount(calculateNights(checkIn, checkOut));
+    }
   };
 
   const handlePromoCodeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -166,19 +192,31 @@ export function ReserveForm({
     }
 
     debounceTimeout.current = setTimeout(async () => {
-      const discountValue = await checkValidPromoCode(event.target.value);
-      setDiscount(discountValue);
+      const { isValid, discountValue, discountPercent } =
+        await checkValidPromoCode(event.target.value);
+      if (isValid) {
+        const totalDiscount =
+          discountValue + (nightCount * pricePerNight * discountPercent) / 100;
+        setDiscount(totalDiscount);
+        setDiscountV(discountValue);
+        setDiscountP(discountPercent);
+      }
     }, 1000);
   };
 
   useEffect(() => {
     const nights = calculateNights(checkIn, checkOut);
     setNightCount(nights);
-    const newTotalPrice = nights * pricePerNight * (1 - discount / 100);
+    let newTotalPrice =
+      nights * pricePerNight * (1 - discountP / 100) - discountV;
+    if (newTotalPrice < 0) {
+      newTotalPrice = 0;
+    }
     setTotalPrice(newTotalPrice);
-  }, [checkIn, checkOut, discount, pricePerNight]);
+    setDiscount(discountV + (nights * pricePerNight * discountP) / 100);
+  }, [checkIn, checkOut, discount, pricePerNight, discountV, discountP]);
 
-  const { errors } = useFormState({ control: form.control }); // Lấy thông tin lỗi từ formState
+  const { errors, isValid } = useFormState({ control: form.control }); // Lấy thông tin lỗi từ formState
 
   // Kiểm tra lỗi ở các trường count
   const isGuestCountError =
@@ -244,6 +282,7 @@ export function ReserveForm({
           params.set("totalNights", responseData.totalNights);
           params.set("totalPrice", responseData.totalPrice);
           params.set("originalPrice", responseData.originalPrice);
+          params.set("totalServiceFee", responseData.totalServiceFee);
           params.set("discountAmount", responseData.discountAmount);
           params.set("propertyName", responseData.propertyName);
           params.set("typeName", responseData.typeName);
@@ -268,35 +307,10 @@ export function ReserveForm({
     <Form {...form}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-1 md:gap-2 sticky top-20 mt-3 rounded-md shadow-md border-[0.5px] dark:border-t dark:md:shadow-gray-700 p-1 sm:p-2 md:p-3 m-1"
+        className="flex flex-col gap-1 md:gap-2 sticky top-20 mt-1 min-[250px]:mt-3 rounded-md shadow-md border-[0.5px] dark:border-t dark:md:shadow-gray-700 p-2 md:p-3 m-1"
       >
         <div className="text-base md:text-xl">
-          <span className="underline text-xs md:text-base font-bold">đ</span>
-
-          {totalPrice > 0 ? (
-            <>
-              <strong>{totalPrice.toLocaleString()} VND</strong>
-              {nightCount > 0 && (
-                <span className="text-base"> / {nightCount} đêm</span>
-              )}
-            </>
-          ) : (
-            <strong>{pricePerNight} / đêm</strong>
-          )}
-
-          {totalPrice > 0 && (
-            <div className="text-xs max-md:ml-1">
-              Đã giảm {discount}%
-              {discount > 0 && (
-                <>
-                  <span className="text-secondary-foreground">{" đ"}</span>
-                  <span className="line-through decoration-secondary-foreground text-secondary-foreground">
-                    {pricePerNight}
-                  </span>
-                </>
-              )}
-            </div>
-          )}
+          <strong>{formatCurrencyVND(pricePerNight)} / đêm</strong>
         </div>
 
         {/* Date Range Picker */}
@@ -407,6 +421,14 @@ export function ReserveForm({
             placeholder="Nhập mã giảm giá"
             className="w-full"
           />
+          {discountV > 0 || discountP > 0 ? (
+            <div className="text-success mt-2 text-sm">
+              {discountP > 0 && <p>Bạn nhận được giảm giá {discountP}%</p>}
+              {discountV > 0 && (
+                <p>Bạn nhận được giảm giá {formatCurrencyVND(discountV)} VND</p>
+              )}
+            </div>
+          ) : null}
         </div>
 
         <Suspense>
@@ -421,6 +443,41 @@ export function ReserveForm({
             Đặt phòng
           </ProtectedButton>
         </Suspense>
+        {isValid && (
+          <>
+            <h3 className="font-semibold text-lg mt-4">Chi tiết giá</h3>
+
+            <div>
+              <div className="min-[280px]:flex justify-between text-sm py-2">
+                <p className="underline">Đơn giá x {nightCount} đêm</p>
+                <p>{formatCurrencyVND(pricePerNight * nightCount)}</p>
+              </div>
+
+              {discount > 0 && (
+                <div className="flex justify-between text-sm py-2 text-success">
+                  <span>Tổng voucher giảm giá </span>
+                  <span>-{formatCurrencyVND(discount)}</span>
+                </div>
+              )}
+
+              <div className="min-[280px]:flex justify-between text-sm py-2">
+                <p className="underline">Phí dịch vụ x {totalGuests} khách</p>
+                <p className={`${serviceFee === 0 && "text-success"}`}>
+                  {serviceFee > 0
+                    ? formatCurrencyVND(serviceFee * totalGuests)
+                    : "Miễn phí"}
+                </p>
+              </div>
+
+              <hr className="my-4 border-secondary-foreground dark:border-secondary border-1" />
+
+              <div className="min-[250px]:flex justify-between font-semibold text-sm md:text-lg">
+                <p>Tổng (VND)</p>
+                <p>{formatCurrencyVND(totalPrice)}</p>
+              </div>
+            </div>
+          </>
+        )}
       </form>
     </Form>
   );

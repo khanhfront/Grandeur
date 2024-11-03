@@ -77,6 +77,7 @@ type Property = {
   districtId: number;
   propertyAddress: string;
   pricePerNight: number;
+  serviceFee: number;
   propertyStructureId: number;
   livingRoomCount: number;
   bedroomCount: number;

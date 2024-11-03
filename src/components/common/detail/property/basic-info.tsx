@@ -46,21 +46,13 @@ export const BasicInfo: React.FC<BasicInfoPropertyProps> = ({
           Loại chỗ ở:
         </Label>
         <div className="border-l pl-2 md:col-span-4 xl:col-span-6 ">
-          <p>
-            {BasicInfoProperty.typeName === "Entire place"
-              ? "Toàn bộ chỗ ở"
-              : BasicInfoProperty.typeName === "Room"
-              ? "Một phòng"
-              : BasicInfoProperty.typeName === "Shared room"
-              ? "Ở ghép"
-              : "N/A"}
-          </p>
+          <p>{BasicInfoProperty.typeName || "N/A"}</p>
           <p className="text-muted-foreground text-sm">
-            {BasicInfoProperty.typeName === "Entire place"
+            {BasicInfoProperty.typeName === "Toàn bộ"
               ? "Bạn có thể sử dụng toàn bộ chỗ ở thỏa mái"
-              : BasicInfoProperty.typeName === "Room"
+              : BasicInfoProperty.typeName === "Phòng riêng"
               ? "Bạn có thể sử dụng phòng đã thuê thỏa mái"
-              : BasicInfoProperty.typeName === "Shared room"
+              : BasicInfoProperty.typeName === "Ở ghép"
               ? "Bạn chia sẻ chỗ ở với người thuê phòng khác"
               : "N/A"}
           </p>

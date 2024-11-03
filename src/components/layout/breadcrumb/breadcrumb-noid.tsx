@@ -6,6 +6,7 @@ import {
   BreadcrumbList,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import ButtonLink from "@/components/common/button/link-button";
 
 // Hàm chuyển đổi thành chữ hoa chữ cái đầu và thay thế '-' bằng ' '
 const capitalizeFirstLetter = (string: string) => {
@@ -33,37 +34,47 @@ const DynamicBreadcrumbNoID = () => {
   let pathArray = pathname.split("/").filter((path) => path);
 
   return (
-    <Breadcrumb className="text-sm mb-3">
-      <BreadcrumbList className="flex items-center">
-        <BreadcrumbItem>
-          <Link href="/" className="text-blue-500 hover:underline">
-            Home
-          </Link>
-        </BreadcrumbItem>
-        {pathArray.length > 0 &&
-          pathArray.map((path, index) => {
-            const href = "/" + pathArray.slice(0, index + 1).join("/"); // URL giữ nguyên ID
-            const isLast = index === pathArray.length - 1;
+    <>
+      <Breadcrumb className="hidden min-[300px]:block text-sm mb-3">
+        <BreadcrumbList className="flex items-center">
+          <BreadcrumbItem>
+            <Link href="/" className="text-blue-500 hover:underline">
+              Home
+            </Link>
+          </BreadcrumbItem>
+          {pathArray.length > 0 &&
+            pathArray.map((path, index) => {
+              const href = "/" + pathArray.slice(0, index + 1).join("/"); // URL giữ nguyên ID
+              const isLast = index === pathArray.length - 1;
 
-            // Loại bỏ ID khỏi phần label
-            const label = capitalizeFirstLetter(removeTrailingId(path));
+              // Loại bỏ ID khỏi phần label
+              const label = capitalizeFirstLetter(removeTrailingId(path));
 
-            return (
-              <BreadcrumbItem key={index} className="flex items-center">
-                <span className="mx-2">/</span> {/* Separator */}
-                <Link
-                  href={href}
-                  className={`${
-                    isLast ? "text-foreground" : "text-blue-500 hover:underline"
-                  }`}
-                >
-                  {label} {/* Label không có ID */}
-                </Link>
-              </BreadcrumbItem>
-            );
-          })}
-      </BreadcrumbList>
-    </Breadcrumb>
+              return (
+                <BreadcrumbItem key={index} className="flex items-center">
+                  <span className="mx-2">/</span> {/* Separator */}
+                  <Link
+                    href={href}
+                    className={`${
+                      isLast
+                        ? "text-foreground"
+                        : "text-blue-500 hover:underline"
+                    }`}
+                  >
+                    {label} {/* Label không có ID */}
+                  </Link>
+                </BreadcrumbItem>
+              );
+            })}
+        </BreadcrumbList>
+      </Breadcrumb>
+      <ButtonLink
+        url="/"
+        className="block min-[300px]:hidden rounded-full outline"
+      >
+        {"<"}
+      </ButtonLink>
+    </>
   );
 };
 

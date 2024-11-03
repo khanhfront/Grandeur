@@ -129,9 +129,9 @@ export default async function Page({ params }: Props) {
         <div className="max-md:block md:hidden sticky top-16 w-full bg-background z-[1] mb-1">
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="w-full">Đặt phòng</Button>
+              <Button className="w-full min-w-0">Đặt phòng</Button>
             </DialogTrigger>
-            <DialogContent className="rounded-md">
+            <DialogContent className="rounded-md min-w-0 max-sm:p-2">
               <DialogHeader>
                 <DialogTitle>Form Đặt Phòng</DialogTitle>
                 <DialogDescription>
@@ -144,10 +144,14 @@ export default async function Page({ params }: Props) {
                 maxGuest={property.maxGuest}
                 pricePerNight={property.pricePerNight}
                 cancellationPolicyList={property.cancelPolicyList}
+                serviceFee={property.serviceFee}
               />
 
               <DialogClose asChild>
-                <Button variant="outline" className="mt-4 w-full">
+                <Button
+                  variant="outline"
+                  className="min-[250px]:mt-4 w-full min-w-0 px-1 sm:px-4"
+                >
                   Đóng
                 </Button>
               </DialogClose>
@@ -316,6 +320,7 @@ export default async function Page({ params }: Props) {
           propertyId={property.propertyId}
           maxGuest={property.maxGuest}
           pricePerNight={property.pricePerNight}
+          serviceFee={property.serviceFee}
           cancellationPolicyList={property.cancelPolicyList}
         />
       </div>

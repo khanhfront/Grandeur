@@ -24,6 +24,8 @@ export default function PaymentPage() {
   type PaymentMethod = "credit_card" | "e_wallet" | "balance";
   const [selectedMethod, setSelectedMethod] =
     useState<PaymentMethod>("balance");
+
+  const [mainPhotoUrl, setMainPhotoUrl] = useState("");
   const bookingId = searchParams.get("bookingId");
   const propertyId = searchParams.get("propertyId");
   const customerId = searchParams.get("customerId");
@@ -35,6 +37,7 @@ export default function PaymentPage() {
   const totalNights = searchParams.get("totalNights");
   const totalPrice = searchParams.get("totalPrice");
   const originalPrice = searchParams.get("originalPrice");
+  const totalServiceFee = searchParams.get("totalServiceFee");
   const discountAmount = searchParams.get("discountAmount");
   const propertyName = searchParams.get("propertyName");
   const typeName = searchParams.get("typeName");
@@ -63,6 +66,7 @@ export default function PaymentPage() {
             !totalNights ||
             !totalPrice ||
             !originalPrice ||
+            !totalServiceFee ||
             !discountAmount ||
             !propertyName ||
             !typeName ||
@@ -95,7 +99,22 @@ export default function PaymentPage() {
       }
     };
 
+    const callMainPhoto = async () => {
+      const res = await fetch(
+        `http://localhost:5280/api/Properties/${propertyId}/common`,
+        {
+          cache: "no-cache",
+        }
+      );
+
+      if (res.ok) {
+        const data = await res.json();
+        setMainPhotoUrl(data.mainPhotoUrl);
+      }
+    };
+
     checkLoginAndParams();
+    callMainPhoto();
   });
 
   if (userIdChecked === null) return <Loader />;
@@ -232,7 +251,19 @@ export default function PaymentPage() {
         </div>
         <div className="col-span-full md:col-span-1 p-2 rounded-lg border-2 border-secondary md:shadow h-fit md:sticky top-20 bg-background">
           <div className="hidden md:flex items-start space-x-4">
-            <div className="bg-gray-200 w-20 h-20 rounded-lg"></div>{" "}
+            {mainPhotoUrl ? (
+              <div className="w-20 h-20 rounded-lg">
+                <img
+                  src={mainPhotoUrl}
+                  loading="lazy"
+                  title={propertyName || "Ảnh minh họa"}
+                  alt="Hình ảnh minh họa của chỗ ở"
+                  className="object-cover w-full h-full rounded-lg"
+                />
+              </div>
+            ) : (
+              <div className="bg-gray-200 w-20 h-20 rounded-lg"></div>
+            )}{" "}
             {/* Placeholder cho ảnh */}
             <div>
               <h2 className="font-semibold text-lg max-lg:truncate">
@@ -270,7 +301,9 @@ export default function PaymentPage() {
             </div>
             <div className="flex justify-between text-sm py-2">
               <span>Phí dịch vụ x {guestNumber} khách</span>
-              <span>₫150.000</span>
+              <span>
+                {formatCurrencyVND(Number(totalServiceFee as string))}
+              </span>
             </div>
 
             <hr className="my-4 border-secondary-foreground dark:border-secondary border-1" />

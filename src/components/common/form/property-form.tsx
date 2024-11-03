@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { Combobox } from "../../ui/combobox";
 
 import { districts, propertyStructures, propertyTypes } from "@/constant/data";
+import { Textarea } from "@/components/ui/textarea";
 
 // Define Zod schema based on PropertyDto
 const formSchema = z.object({
@@ -41,6 +42,10 @@ const formSchema = z.object({
   pricePerNight: z.preprocess(
     (val) => (val === "" ? null : parseFloat(val as string)),
     z.number().min(1, "Giá phải lớn hơn 0")
+  ),
+  serviceFee: z.preprocess(
+    (val) => (val === "" ? null : parseInt(val as string)),
+    z.number().nullable().optional()
   ),
 
   propertyStructureId: z.preprocess(
@@ -81,6 +86,7 @@ const formSchema = z.object({
     (val) => (val === "" ? null : parseInt(val as string)),
     z.number().nullable().optional()
   ),
+  propertyDescription: z.string().min(200, "Mô tả chỗ ở tối thiểu 200 kí tự"),
 });
 
 export default function AddPropertyForm() {
@@ -94,6 +100,7 @@ export default function AddPropertyForm() {
       districtId: "",
       propertyAddress: "",
       pricePerNight: 0,
+      serviceFee: 0,
       propertyStructureId: "",
       livingRoomCount: "",
       bedroomCount: "",
@@ -102,6 +109,7 @@ export default function AddPropertyForm() {
       kitchenCount: "",
       minimumStay: "",
       maxGuest: "",
+      propertyDescription: "",
     },
   });
 
@@ -230,6 +238,23 @@ export default function AddPropertyForm() {
                 <Input
                   type="number"
                   placeholder="Giá cho property (VND)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="serviceFee"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phí dịch vụ (VND)</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="Phí dịch vụ (tính trên số khách) (VND)"
                   {...field}
                 />
               </FormControl>
@@ -367,6 +392,23 @@ export default function AddPropertyForm() {
                   {...field}
                 />
               </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="propertyDescription"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Mô tả</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Giới thiệu chỗ ở của bạn"
+                  {...field}
+                  rows={4}
+                />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

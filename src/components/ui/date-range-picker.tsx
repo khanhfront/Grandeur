@@ -54,7 +54,7 @@ export function DatePickerWithRange({
             <CalendarIcon className="mr-2 w-5 h-5 hidden min-[300px]:flex" />
             {selectedDate?.from ? (
               selectedDate.to ? (
-                <div className="flex flex-col min-[230px]:flex-row md:flex-col lg:flex-row lg:items-center gap-2 flex-1">
+                <div className="flex flex-col min-[250px]:flex-row md:flex-col lg:flex-row lg:items-center gap-1 min-[250px]:gap-2 min-[250px]:flex-1">
                   <div className="text-xs flex flex-1 gap-1 justify-center text-xs xl:text-sm 2xl:text-base">
                     <strong>Từ:</strong>{" "}
                     {format(selectedDate.from, "dd/MM/yyyy")}

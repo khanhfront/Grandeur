@@ -39,6 +39,10 @@ const formSchema = z.object({
     (val) => (val === "" ? null : parseFloat(val as string)),
     z.number().min(1, "Giá phải lớn hơn 0")
   ),
+  serviceFee: z.preprocess(
+    (val) => (val === "" ? null : parseFloat(val as string)),
+    z.number().nullable().optional()
+  ),
   propertyStructureId: z.preprocess(
     (val) => (val === "" ? null : parseInt(val as string)),
     z.number().nullable().optional()
@@ -71,7 +75,7 @@ const formSchema = z.object({
     (val) => (val === "" ? null : parseInt(val as string)),
     z.number().nullable().optional()
   ),
-  propertyDescription: z.string().min(200, "Mô tả chỗ ở tối thiểu 3 kí tự"),
+  propertyDescription: z.string().min(200, "Mô tả chỗ ở tối thiểu 200 kí tự"),
 });
 
 type PropertyCardProps = {
@@ -94,6 +98,7 @@ export default function UpdatePropertyForm({ property }: PropertyCardProps) {
       districtId: property.districtId,
       propertyAddress: property.propertyAddress,
       pricePerNight: property.pricePerNight,
+      serviceFee: property.serviceFee,
       propertyStructureId: property.propertyStructureId,
       livingRoomCount: property.livingRoomCount || "",
       bedroomCount: property.bedroomCount || "",
@@ -350,10 +355,27 @@ export default function UpdatePropertyForm({ property }: PropertyCardProps) {
           control={form.control}
           name="propertyAddress"
           render={({ field }) => (
-            <FormItem className="col-span-full">
+            <FormItem>
               <FormLabel>Địa chỉ</FormLabel>
               <FormControl>
                 <Input placeholder="Số nhà, tên đường, khu phố" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="serviceFee"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phí dịch vụ (VND)</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="Phí dịch vụ (vệ sinh, ...). Nhân với số người"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
